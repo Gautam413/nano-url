@@ -60,7 +60,9 @@ def create_short_url(request: Request, data: URLCreate, db: Session = Depends(ge
     db.commit()
     db.refresh(new_url)
 
-    shortened_link = f"http://127.0.0.1:8000/{short_url}"
+    # shortened_link = f"http://127.0.0.1:8000/{short_url}"
+    shortened_link = str(request.base_url) + short_url
+
     return {"short_url": shortened_link}
 
 @app.get("/{short_url}") 
@@ -85,8 +87,10 @@ def request_access(short_url: str, data: AccessRequest, request: Request, db: Se
     authorized_emails = short_url_entry.authorized_emails.split(",")
     if data.user_email not in authorized_emails:
         raise HTTPException(status_code=403, detail="You are not authorized to access this URL.")
-
-    send_verification_email(data.user_email, short_url)
+    
+    base_url = str(request.base_url)  # ✅ this is required
+    send_verification_email(data.user_email, short_url, base_url)
+    # send_verification_email(data.user_email, short_url)
     return {"message": "Verification email sent. Please check your inbox."}
 
 @app.get("/verify/{token}")

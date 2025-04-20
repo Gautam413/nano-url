@@ -50,14 +50,15 @@ def generate_verification_token(email: str, short_url: str):
 
 
 # ✅ Send Verification Email with JWT
-def send_verification_email(to_email: str, short_url: str):
+def send_verification_email(to_email: str, short_url: str, base_url: str):
     smtp_server = os.getenv("SMTP_SERVER")
     smtp_port = int(os.getenv("SMTP_PORT"))
     email_user = os.getenv("EMAIL_USERNAME")
     email_password = os.getenv("EMAIL_PASSWORD")
 
     token = generate_verification_token(to_email, short_url)  # ✅ Generate JWT token
-    verification_link = f"http://127.0.0.1:8000/verify/{token}"  # ✅ Use token in URL
+    # verification_link = f"http://127.0.0.1:8000/verify/{token}"  # ✅ Use token in URL
+    verification_link = f"{base_url}verify/{token}"
 
     subject = "Verify Your Access"
     body = f"Click <a href='{verification_link}'>here</a> to verify your access. This link will expire in 24 hours."
