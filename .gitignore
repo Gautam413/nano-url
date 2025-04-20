@@ -13,3 +13,4 @@ env/
 # Alembic
 alembic/versions/*.pyc
 
+test.py
