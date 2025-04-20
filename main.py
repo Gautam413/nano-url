@@ -30,7 +30,6 @@ app.state.limiter = limiter  # Attach limiter to the app
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
-#DATABASE_URL="postgresql://postgres.nllpdwffmmqvswhcjmfa:WNLYtxLM6pVLJ33w@aws-0-ap-south-1.pooler.supabase.com:5432/postgres?sslmode=require"
 
 # Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)
