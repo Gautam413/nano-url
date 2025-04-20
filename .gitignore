@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+
+# Environment variables
+.env
+
+# Alembic
+alembic/versions/*.pyc
+
