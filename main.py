@@ -20,6 +20,7 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
 from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
+from starlette.middleware.proxy_headers import ProxyHeadersMiddleware
 
 
 # ✅ Initialize Limiter
@@ -28,6 +29,8 @@ limiter = Limiter(key_func=get_remote_address)
 SECRET_KEY = os.getenv("JWT_SECRET")
 
 app = FastAPI()
+
+app.add_middleware(ProxyHeadersMiddleware)
 
 app.add_middleware(HTTPSRedirectMiddleware)
 
