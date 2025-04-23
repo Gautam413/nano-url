@@ -89,7 +89,20 @@ def request_access(short_url: str, data: AccessRequest, request: Request, db: Se
         raise HTTPException(status_code=403, detail="You are not authorized to access this URL.")
     
     base_url = str(request.base_url)  # ✅ this is required
-    send_verification_email(data.user_email, short_url, base_url)
+    # send_verification_email(data.user_email, short_url, base_url)
+
+
+    try:
+        send_verification_email(data.user_email, short_url, base_url)
+    except Exception as e:
+        # ✅ Log to server
+        print(f"Error in send_verification_email: {e}")
+        return JSONResponse(
+            content={"detail": "Failed to send verification email", "error": str(e)}
+        )
+
+
+
     # send_verification_email(data.user_email, short_url)
     return {"message": "Verification email sent. Please check your inbox."}
 
