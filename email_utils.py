@@ -67,15 +67,10 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     subject = "Verify Your Access"
     body = f"Click <a href='{verification_link}'>here</a> to verify your access. This link will expire in 24 hours."
 
-    # msg = MIMEText(body, "html")
-    # msg["Subject"] = subject
-    # msg["From"] = email_user
-    # msg["To"] = to_email
-
     msg = MIMEText(body, "html")
-    msg["Subject"] = subject.strip().replace("\n", "").replace("\r", "")
-    msg["From"] = email_user.strip().replace("\n", "").replace("\r", "")
-    msg["To"] = to_email.strip().replace("\n", "").replace("\r", "")
+    msg["Subject"] = subject
+    msg["From"] = email_user
+    msg["To"] = str(to_email).strip()
 
 
     try:
