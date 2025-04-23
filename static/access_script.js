@@ -22,7 +22,10 @@ document.getElementById("accessForm").addEventListener("submit", async function 
         // Indicate loading state
         resultDiv.innerHTML = `<p style="color: blue;">Processing request...</p>`;
 
-        const response = await fetch(`http://127.0.0.1:8000/${shortUrl}/request-access`, {
+        const response = await fetch(`${window.location.origin}/${shortUrl}/request-access`, {
+
+
+        // const response = await fetch(`http://127.0.0.1:8000/${shortUrl}/request-access`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
