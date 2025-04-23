@@ -67,14 +67,16 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     subject = "Verify Your Access"
     body = f"Click <a href='{verification_link}'>here</a> to verify your access. This link will expire in 24 hours."
 
-    msg = MIMEText(body, "html")
-    msg["Subject"] = subject
-    msg["From"] = email_user
-    msg["To"] = to_email
+    # msg = MIMEText(body, "html")
+    # msg["Subject"] = subject
+    # msg["From"] = email_user
+    # msg["To"] = to_email
 
-    print("----- Email Headers -----")
-    print(msg.as_string())
-    print("-------------------------")
+    msg = MIMEText(body, "html")
+    msg["Subject"] = subject.strip().replace("\n", "").replace("\r", "")
+    msg["From"] = email_user.strip().replace("\n", "").replace("\r", "")
+    msg["To"] = to_email.strip().replace("\n", "").replace("\r", "")
+
 
     try:
         server = smtplib.SMTP_SSL(smtp_server, smtp_port)
