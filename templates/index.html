@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shorten URL</title>
-    <link rel="stylesheet" href="{{ request.url_for('static', path='styles.css') }}">
-    <script src="{{request.url_for('static', path='script.js') }}" defer></script>
+    <!-- <link rel="stylesheet" href="{{ request.url_for('static', path='styles.css') }}">
+    <script src="{{request.url_for('static', path='script.js') }}" defer></script> -->
+
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/script.js" defer></script>
+
 
     <!-- url_for() Doesn’t Work Alone because this defaults to http://, especially outside a request context.
     page is served over https://, but the CSS and JS are being loaded using http://, which browsers block by default. -->
