@@ -19,12 +19,15 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
+from starlette.middleware.proxy_headers import ProxyHeadersMiddleware # type: ignore
+
 # ✅ Initialize Limiter
 limiter = Limiter(key_func=get_remote_address)
 
 SECRET_KEY = os.getenv("JWT_SECRET")
 
 app = FastAPI()
+app.add_middleware(ProxyHeadersMiddleware)
 
 app.state.limiter = limiter  # Attach limiter to the app
 
