@@ -56,6 +56,10 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     email_user = os.getenv("EMAIL_USERNAME")
     email_password = os.getenv("EMAIL_PASSWORD")
 
+     # ✅ Debugging: Check types before using
+    print(f"to_email: {to_email}, type: {type(to_email)}")
+    print(f"email_user: {email_user}, type: {type(email_user)}")
+
     token = generate_verification_token(to_email, short_url)  # ✅ Generate JWT token
     # verification_link = f"http://127.0.0.1:8000/verify/{token}"  # ✅ Use token in URL
     verification_link = f"{base_url}verify/{token}"
