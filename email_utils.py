@@ -82,7 +82,7 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
         if not isinstance(email_user, str) or not isinstance(to_email, str) or not isinstance(msg.as_string(), str):
             print("❌ One or more sendmail params is not a string")
 
-        server.sendmail(email_user, to_email, msg.as_string())
+        server.sendmail(email_user, [to_email], msg.as_string())
         server.quit()
         print("Verification email sent successfully!")
     except Exception as e:
