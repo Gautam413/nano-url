@@ -74,17 +74,12 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     
 
     try:
-        print(f"Sending email from {email_user} to {to_email}")
-        print(f"msg.as_string():\n{msg.as_string()}")
-        server = smtplib.SMTP_SSL(smtp_server, smtp_port)
-        server.login(email_user, email_password)
+        print("MOCK SENDMAIL:")
+        print(f"From: {email_user}")
+        print(f"To: {[to_email]}")
+        print("Message:")
+        print(msg.as_string())
 
-        if not isinstance(email_user, str) or not isinstance(to_email, str) or not isinstance(msg.as_string(), str):
-            print("❌ One or more sendmail params is not a string")
-
-        server.sendmail(email_user, [to_email], msg.as_string())
-        server.quit()
-        print("Verification email sent successfully!")
     except Exception as e:
         print(f"Error sending email: {e}")
 
