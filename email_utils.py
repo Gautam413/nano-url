@@ -46,7 +46,9 @@ def generate_verification_token(email: str, short_url: str):
         "short_url": short_url,
         "exp": datetime.now(timezone.utc) + timedelta(days=1)  # 1-day expiration
     }
-    return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+    token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+    return token if isinstance(token, str) else token.decode("utf-8")
+    # return jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
 
 # ✅ Send Verification Email with JWT
@@ -61,6 +63,9 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     print(f"email_user: {email_user}, type: {type(email_user)}")
 
     token = generate_verification_token(to_email, short_url)  # ✅ Generate JWT token
+
+    print(f"Generated token: {token}, type: {type(token)}")
+
     # verification_link = f"http://127.0.0.1:8000/verify/{token}"  # ✅ Use token in URL
     verification_link = f"{base_url}verify/{token}"
 
@@ -74,12 +79,14 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     
 
     try:
-        print("MOCK SENDMAIL:")
-        print(f"From: {email_user}")
-        print(f"To: {[to_email]}")
-        print("Message:")
-        print(msg.as_string())
+        print(f"Sending email from {email_user} to {to_email}")
+        print(f"msg.as_string():\n{msg.as_string()}")
+        server = smtplib.SMTP_SSL(smtp_server, smtp_port)
+        server.login(email_user, email_password)
 
+        server.sendmail(email_user, to_email, msg.as_string())
+        server.quit()
+        print("Verification email sent successfully!")
     except Exception as e:
         print(f"Error sending email: {e}")
 
