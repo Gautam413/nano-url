@@ -72,16 +72,16 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     msg["From"] = email_user
     msg["To"] = to_email
     
-    print(f"EMAIL_USERNAME: {repr(email_user)} | type: {type(email_user)}")
-    print(f"SMTP_SERVER: {repr(smtp_server)} | type: {type(smtp_server)}")
-
-    if not all([smtp_server, smtp_port, email_user, email_password]):
-        print("❌ One or more email config values are missing!")
-
 
     try:
+        print(f"Sending email from {email_user} to {to_email}")
+        print(f"msg.as_string():\n{msg.as_string()}")
         server = smtplib.SMTP_SSL(smtp_server, smtp_port)
         server.login(email_user, email_password)
+
+        if not isinstance(email_user, str) or not isinstance(to_email, str) or not isinstance(msg.as_string(), str):
+            print("❌ One or more sendmail params is not a string")
+
         server.sendmail(email_user, to_email, msg.as_string())
         server.quit()
         print("Verification email sent successfully!")
