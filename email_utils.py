@@ -71,6 +71,12 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     msg["Subject"] = subject
     msg["From"] = email_user
     msg["To"] = to_email
+    
+    print(f"EMAIL_USERNAME: {repr(email_user)} | type: {type(email_user)}")
+    print(f"SMTP_SERVER: {repr(smtp_server)} | type: {type(smtp_server)}")
+
+    if not all([smtp_server, smtp_port, email_user, email_password]):
+        print("❌ One or more email config values are missing!")
 
 
     try:
