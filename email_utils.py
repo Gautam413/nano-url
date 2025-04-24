@@ -70,13 +70,13 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     msg = MIMEText(body, "html")
     msg["Subject"] = subject
     msg["From"] = email_user
-    msg["To"] = str(to_email).strip()
+    msg["To"] = to_email
 
 
     try:
         server = smtplib.SMTP_SSL(smtp_server, smtp_port)
         server.login(email_user, email_password)
-        server.sendmail(email_user, [to_email], msg.as_string())
+        server.sendmail(email_user, to_email, msg.as_string())
         server.quit()
         print("Verification email sent successfully!")
     except Exception as e:
