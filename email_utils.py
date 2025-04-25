@@ -69,10 +69,16 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     if not all([smtp_server, smtp_port, email_user, email_password]):
         raise ValueError("Missing one or more required email environment variables.")
 
+    try:
+        print("About to generate token...")
+        token = generate_verification_token(to_email, short_url)
+        print(f"Generated token: {token}, type: {type(token)}")
+    except Exception as e:
+        print(f"Error generating token: {e}")
+        raise
 
-    token = generate_verification_token(to_email, short_url)  # ✅ Generate JWT token
+    # token = generate_verification_token(to_email, short_url)  # ✅ Generate JWT token
 
-    print(f"Generated token: {token}, type: {type(token)}")
 
     # verification_link = f"http://127.0.0.1:8000/verify/{token}"  # ✅ Use token in URL
     # verification_link = f"{base_url}verify/{token}"
