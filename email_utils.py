@@ -8,7 +8,7 @@ import string
 from datetime import datetime, timezone, timedelta
 
 import jwt 
-SECRET_KEY = os.getenv("JWT_SEC") 
+SECRET_KEY = os.getenv("JWT_SEC")  # For JWT
 
 # Generate a unique verification token
 def generate_token(length=32):
