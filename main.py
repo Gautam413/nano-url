@@ -61,7 +61,10 @@ def create_short_url(request: Request, data: URLCreate, db: Session = Depends(ge
     db.refresh(new_url)
 
     # shortened_link = f"http://127.0.0.1:8000/{short_url}"
-    shortened_link = str(request.base_url) + short_url
+    # shortened_link = str(request.base_url) + short_url
+
+    shortened_link = str(request.base_url).rstrip("/") + "/" + short_url
+
 
     return {"short_url": shortened_link}
 

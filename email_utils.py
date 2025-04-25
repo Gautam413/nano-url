@@ -67,7 +67,8 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     print(f"Generated token: {token}, type: {type(token)}")
 
     # verification_link = f"http://127.0.0.1:8000/verify/{token}"  # ✅ Use token in URL
-    verification_link = f"{base_url}verify/{token}"
+    # verification_link = f"{base_url}verify/{token}"
+    verification_link = f"{base_url.rstrip('/')}/verify/{token}"
 
     subject = "Verify Your Access"
     body = f"Click <a href='{verification_link}'>here</a> to verify your access. This link will expire in 24 hours."
