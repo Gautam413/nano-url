@@ -22,7 +22,7 @@ from slowapi.errors import RateLimitExceeded
 # ✅ Initialize Limiter
 limiter = Limiter(key_func=get_remote_address)
 
-SECRET_KEY = os.getenv("JWT_SECRET")
+SECRET_KEY = os.getenv("JWT_SEC")
 
 app = FastAPI()
 app.state.limiter = limiter  # Attach limiter to the app
