@@ -61,6 +61,9 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
      # ✅ Debugging: Check types before using
     print(f"to_email: {to_email}, type: {type(to_email)}")
     print(f"email_user: {email_user}, type: {type(email_user)}")
+    if not all([smtp_server, smtp_port, email_user, email_password]):
+        raise ValueError("Missing one or more required email environment variables.")
+
 
     token = generate_verification_token(to_email, short_url)  # ✅ Generate JWT token
 
@@ -78,6 +81,8 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
     msg["From"] = email_user
     msg["To"] = to_email
     
+    print(f"msg headers -> From: {email_user}, To: {to_email}")
+
 
     try:
         print(f"Sending email from {email_user} to {to_email}")
