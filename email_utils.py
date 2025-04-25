@@ -44,7 +44,7 @@ def generate_verification_token(email: str, short_url: str):
     payload = {
         "user_email": email,
         "short_url": short_url,
-        "exp": datetime.now(timezone.utc) + timedelta(days=1)  # 1-day expiration
+        "exp": int((datetime.now(timezone.utc) + timedelta(days=1)).timestamp())  # 1-day expiration
     }
     token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
     return token if isinstance(token, str) else token.decode("utf-8")
