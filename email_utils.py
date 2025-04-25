@@ -61,6 +61,11 @@ def send_verification_email(to_email: str, short_url: str, base_url: str):
      # ✅ Debugging: Check types before using
     print(f"to_email: {to_email}, type: {type(to_email)}")
     print(f"email_user: {email_user}, type: {type(email_user)}")
+
+    print(f"repr(email_user): {repr(email_user)}")
+    print(f"repr(to_email): {repr(to_email)}")
+
+
     if not all([smtp_server, smtp_port, email_user, email_password]):
         raise ValueError("Missing one or more required email environment variables.")
 
