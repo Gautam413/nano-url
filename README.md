@@ -44,4 +44,4 @@ Feel free to [open an issue](https://github.com/Gautam413/nano-url/issues) .
 
 ## 📄 License
 
-MIT License
+This project is licensed under the MIT License.
